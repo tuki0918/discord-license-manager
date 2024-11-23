@@ -13,4 +13,8 @@ export class User {
 
 	@Column()
 	age: number;
+
+	getFullName(): string {
+		return `${this.firstName} ${this.lastName}`;
+	}
 }
