@@ -1,0 +1,35 @@
+enum LicenseStatus {
+  enable
+  disabled
+}
+
+model License {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  code                  String              @unique @db.VarChar(255)
+  status                LicenseStatus       @default(enable)
+  expired_at            DateTime
+  discord_grant_role_id String
+  created_at            DateTime            @default(now())
+  updated_at            DateTime            @updatedAt
+  redeemLicenses        RedeemLicense[]
+}
+
+enum RedeemLicenseStatus {
+  enable
+  disabled
+}
+
+model RedeemLicense {
+  id                    Int                     @id @default(autoincrement())
+  code                  String                  @db.VarChar(255)
+  redeemed_at           DateTime
+  status                RedeemLicenseStatus     @default(enable)
+  discord_id            String
+  discord_grant_role_id String[]
+  created_at            DateTime                @default(now())
+  updated_at            DateTime                @updatedAt
+  licenseKey            License                 @relation(fields: [code], references: [code])
+
+  @@unique([code, discord_id], name: "code_discord_id")
+}
