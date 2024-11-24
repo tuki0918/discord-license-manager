@@ -26,10 +26,10 @@ model RedeemLicense {
   redeemed_at           DateTime
   status                RedeemLicenseStatus     @default(enable)
   discord_id            String
-  discord_grant_role_id String[]
+  discord_grant_role_id String
   created_at            DateTime                @default(now())
   updated_at            DateTime                @updatedAt
-  licenseKey            License                 @relation(fields: [code], references: [code])
+  license               License                 @relation(fields: [code], references: [code])
 
   @@unique([code, discord_id], name: "code_discord_id")
 }
