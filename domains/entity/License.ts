@@ -23,18 +23,18 @@ export type LicenseDraftType = z.infer<typeof LicenseDraftSchema>;
 export type LicenseType = z.infer<typeof LicenseSchema>;
 
 export class LicenseDraft {
-	private _name: string;
-	private _code: string;
-	private _status: LicenseStatusType;
-	private _expiredAt: Date;
-	private _discordGrantRoleId: string;
+	readonly name: string;
+	readonly code: string;
+	readonly status: LicenseStatusType;
+	readonly expiredAt: Date;
+	readonly discordGrantRoleId: string;
 
 	protected constructor(data: LicenseDraftType) {
-		this._name = data.name;
-		this._code = data.code;
-		this._status = data.status;
-		this._expiredAt = data.expired_at;
-		this._discordGrantRoleId = data.discord_grant_role_id;
+		this.name = data.name;
+		this.code = data.code;
+		this.status = data.status;
+		this.expiredAt = data.expired_at;
+		this.discordGrantRoleId = data.discord_grant_role_id;
 	}
 
 	static create(data: LicenseDraftType): LicenseDraft {
@@ -42,58 +42,21 @@ export class LicenseDraft {
 		return new LicenseDraft(validatedData);
 	}
 
-	get name(): string {
-		return this._name;
-	}
-
-	get code(): string {
-		return this._code;
-	}
-
-	get status(): LicenseStatusType {
-		return this._status;
-	}
-
-	get expiredAt(): Date {
-		return this._expiredAt;
-	}
-
-	get discordGrantRoleId(): string {
-		return this._discordGrantRoleId;
-	}
-
-	setName(name: string) {
-		this._name = name;
-	}
-
-	setCode(code: string) {
-		const validatedData = LicenseCodeSchema.parse(code);
-		this._code = validatedData;
-	}
-
-	setStatus(status: LicenseStatusType) {
-		this._status = status;
-	}
-
-	setExpiredAt(expiredAt: Date) {
-		this._expiredAt = expiredAt;
-	}
-
 	isEnable(): boolean {
-		return this._status === "enable";
+		return this.status === "enable";
 	}
 
 	isExpired(date: Date = new Date()): boolean {
-		return this._expiredAt < date;
+		return this.expiredAt < date;
 	}
 
 	toDB(): Prisma.LicenseUncheckedCreateInput {
 		return {
-			name: this._name,
-			code: this._code,
-			expired_at: this._expiredAt,
-			status: this._status,
-			discord_grant_role_id: this._discordGrantRoleId,
+			name: this.name,
+			code: this.code,
+			expired_at: this.expiredAt,
+			status: this.status,
+			discord_grant_role_id: this.discordGrantRoleId,
 		};
 	}
 }
