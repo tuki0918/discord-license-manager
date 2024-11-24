@@ -3,7 +3,7 @@ import { z } from "zod";
 
 // format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX
 const pattern = /^[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}$/;
-const LicenseCodeSchema = z.string().regex(pattern, {
+export const LicenseCodeSchema = z.string().regex(pattern, {
 	message: "Invalid format. Expected XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
 });
 const LicenseStatusSchema = z.enum(["enable", "disabled"]);
