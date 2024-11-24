@@ -1,4 +1,4 @@
-import { LicenseCodeSchema } from "@/domains/models";
+import { LicenseCodeSchema } from "@/domain/models";
 import type { Prisma } from "@prisma/client";
 import { z } from "zod";
 
