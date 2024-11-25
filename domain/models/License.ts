@@ -1,16 +1,16 @@
 import type { Prisma } from "@prisma/client";
+import { min } from "date-fns";
 import { z } from "zod";
 
-// format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX
-const pattern = /^[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}$/;
-export const LicenseCodeSchema = z.string().regex(pattern, {
-	message: "Invalid format. Expected XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX",
-});
 const LicenseStatusSchema = z.enum(["enable", "disabled"]);
 const LicenseSchema = z.object({
 	id: z.number(),
-	name: z.string(),
-	code: LicenseCodeSchema,
+	name: z.string().min(2, {
+		message: "Name must be at least 2 characters.",
+	}),
+	code: z.string().min(16, {
+		message: "Code must be at least 16 characters.",
+	}),
 	status: LicenseStatusSchema,
 	expired_at: z.date(),
 	discord_grant_role_id: z.string(),

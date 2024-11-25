@@ -1,11 +1,12 @@
-import { LicenseCodeSchema } from "@/domain/models";
 import type { Prisma } from "@prisma/client";
 import { z } from "zod";
 
 const RedeemLicenseStatusSchema = z.enum(["enable", "disabled"]);
 const RedeemLicenseSchema = z.object({
 	id: z.number(),
-	code: LicenseCodeSchema,
+	code: z.string().min(16, {
+		message: "Code must be at least 16 characters.",
+	}),
 	redeemed_at: z.date(),
 	status: RedeemLicenseStatusSchema,
 	discord_id: z.string(),

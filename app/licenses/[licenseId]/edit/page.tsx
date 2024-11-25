@@ -8,8 +8,10 @@ type PageProps = {
 
 export default async function Page({ params }: PageProps) {
 	const { licenseId } = params;
+	const itemId = Number.parseInt(licenseId, 10);
+
 	const data = await prisma.license.findUnique({
-		where: { id: Number(licenseId) },
+		where: { id: itemId },
 	});
 
 	if (!data) {
@@ -19,7 +21,7 @@ export default async function Page({ params }: PageProps) {
 	return (
 		<div className="container mx-auto">
 			<div className="h-screen flex items-center justify-center">
-				<LicenseForm itemId={String(data.id)} defaultValues={data} />
+				<LicenseForm itemId={itemId} defaultValues={data} />
 			</div>
 		</div>
 	);

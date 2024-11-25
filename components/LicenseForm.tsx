@@ -34,18 +34,24 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+// format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX
+const pattern = /^[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}-[0-9A-F]{8}$/;
+export const LicenseCodeSchema = z.string().regex(pattern, {
+	message:
+		"Invalid format. Expected XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX (0-9, A-F)",
+});
 export const formSchema = z.object({
 	name: z.string().min(2, {
 		message: "Name must be at least 2 characters.",
 	}),
-	code: z.string(),
+	code: LicenseCodeSchema,
 	status: z.enum(["enable", "disabled"]),
 	expired_at: z.date(),
 	discord_grant_role_id: z.string(),
 });
 
 const LicenseForm: FC<{
-	itemId?: string;
+	itemId?: number;
 	defaultValues?: Partial<z.infer<typeof formSchema>>;
 }> = ({ itemId = null, defaultValues }) => {
 	const isCreate = !itemId;
@@ -181,6 +187,20 @@ const LicenseForm: FC<{
 										/>
 									</PopoverContent>
 								</Popover>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<FormField
+						control={form.control}
+						name="discord_grant_role_id"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Grant role</FormLabel>
+								<FormControl>
+									<Input placeholder="discord_grant_role_id" {...field} />
+								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
