@@ -18,8 +18,6 @@ export default async function Page() {
 		},
 	});
 
-	console.log(licenses);
-
 	return (
 		<div className="container mx-auto">
 			<div className="h-screen flex items-center justify-center">
