@@ -48,7 +48,7 @@ export const formSchema = z.object({
 	status: z.enum(["enable", "disabled"]),
 	expired_at: z.date(),
 	discord_grant_role_id: z.string().min(2, {
-		message: "Role_id must be at least 2 characters.",
+		message: "Role id must be at least 2 characters.",
 	}),
 });
 
@@ -97,138 +97,138 @@ const LicenseForm: FC<{
 	}, [itemId, router]);
 
 	return (
-		<div className="w-4/5 md:w-3/5 lg:w-1/2">
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-					<FormField
-						control={form.control}
-						name="name"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Name</FormLabel>
-								<FormControl>
-									<Input placeholder="name" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+				<FormField
+					control={form.control}
+					name="name"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Name</FormLabel>
+							<FormControl>
+								<Input placeholder="name" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 
-					<FormField
-						control={form.control}
-						name="code"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Code</FormLabel>
-								<FormControl>
-									<Input placeholder="code" {...field} disabled={!isCreate} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+				<FormField
+					control={form.control}
+					name="code"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Code</FormLabel>
+							<FormControl>
+								<Input
+									placeholder="code"
+									{...field}
+									className="min-w-96"
+									disabled={!isCreate}
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 
-					<FormField
-						control={form.control}
-						name="status"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Status</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
+				<FormField
+					control={form.control}
+					name="status"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Status</FormLabel>
+							<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<FormControl>
+									<SelectTrigger>
+										<SelectValue placeholder="Select a item" />
+									</SelectTrigger>
+								</FormControl>
+								<SelectContent>
+									<SelectItem value="enable">enable</SelectItem>
+									<SelectItem value="disabled">disabled</SelectItem>
+								</SelectContent>
+							</Select>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={form.control}
+					name="expired_at"
+					render={({ field }) => (
+						<FormItem className="flex flex-col">
+							<FormLabel>Expired At</FormLabel>
+							<Popover>
+								<PopoverTrigger asChild>
 									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a item" />
-										</SelectTrigger>
+										<Button
+											variant={"outline"}
+											className={cn(
+												"w-[240px] pl-3 text-left font-normal",
+												!field.value && "text-muted-foreground",
+											)}
+										>
+											{field.value ? (
+												format(field.value, "yyyy/MM/dd HH:mm")
+											) : (
+												<span>Pick a date</span>
+											)}
+											<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+										</Button>
 									</FormControl>
-									<SelectContent>
-										<SelectItem value="enable">enable</SelectItem>
-										<SelectItem value="disabled">disabled</SelectItem>
-									</SelectContent>
-								</Select>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+								</PopoverTrigger>
+								<PopoverContent className="w-auto p-0" align="start">
+									<Calendar
+										mode="single"
+										selected={field.value}
+										onSelect={field.onChange}
+										disabled={(date) =>
+											date > new Date() || date < new Date("1900-01-01")
+										}
+										initialFocus
+									/>
+								</PopoverContent>
+							</Popover>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 
-					<FormField
-						control={form.control}
-						name="expired_at"
-						render={({ field }) => (
-							<FormItem className="flex flex-col">
-								<FormLabel>Expired At</FormLabel>
-								<Popover>
-									<PopoverTrigger asChild>
-										<FormControl>
-											<Button
-												variant={"outline"}
-												className={cn(
-													"w-[240px] pl-3 text-left font-normal",
-													!field.value && "text-muted-foreground",
-												)}
-											>
-												{field.value ? (
-													format(field.value, "yyyy/MM/dd HH:mm")
-												) : (
-													<span>Pick a date</span>
-												)}
-												<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-											</Button>
-										</FormControl>
-									</PopoverTrigger>
-									<PopoverContent className="w-auto p-0" align="start">
-										<Calendar
-											mode="single"
-											selected={field.value}
-											onSelect={field.onChange}
-											disabled={(date) =>
-												date > new Date() || date < new Date("1900-01-01")
-											}
-											initialFocus
-										/>
-									</PopoverContent>
-								</Popover>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+				<FormField
+					control={form.control}
+					name="discord_grant_role_id"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Grant role</FormLabel>
+							<FormControl>
+								<Input placeholder="role id" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 
-					<FormField
-						control={form.control}
-						name="discord_grant_role_id"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Grant role</FormLabel>
-								<FormControl>
-									<Input placeholder="role id" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+				<div className="flex items-center justify-between">
+					<Button type="submit" disabled={isLoading}>
+						{isLoading && <LoaderCircle className="animate-spin" />}
+						{isCreate ? "Create" : "Update"}
+					</Button>
 
-					<div className="flex items-center justify-between">
-						<Button type="submit" disabled={isLoading}>
-							{isLoading && <LoaderCircle className="animate-spin" />}
-							{isCreate ? "Create" : "Update"}
+					{!isCreate && (
+						<Button
+							variant="destructive"
+							disabled={isLoadingDelete}
+							onClick={handleDelete}
+						>
+							{isLoadingDelete && <LoaderCircle className="animate-spin" />}
+							Delete
 						</Button>
-
-						{!isCreate && (
-							<Button
-								variant="destructive"
-								disabled={isLoadingDelete}
-								onClick={handleDelete}
-							>
-								{isLoadingDelete && <LoaderCircle className="animate-spin" />}
-								Delete
-							</Button>
-						)}
-					</div>
-				</form>
-			</Form>
-		</div>
+					)}
+				</div>
+			</form>
+		</Form>
 	);
 };
 

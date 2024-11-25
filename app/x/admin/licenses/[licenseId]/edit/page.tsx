@@ -1,5 +1,7 @@
 import LicenseForm from "@/components/LicenseForm";
 import prisma from "@/libs/db";
+import { Key } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -21,7 +23,18 @@ export default async function Page({ params }: PageProps) {
 	return (
 		<div className="container mx-auto">
 			<div className="h-screen flex items-center justify-center">
-				<LicenseForm itemId={itemId} defaultValues={data} />
+				<div>
+					<div>
+						<h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 flex justify-center">
+							<Link href={"/x/admin/licenses"}>
+								<Key color="#333333" size={48} />
+							</Link>
+						</h1>
+					</div>
+					<div>
+						<LicenseForm itemId={itemId} defaultValues={data} />
+					</div>
+				</div>
 			</div>
 		</div>
 	);
