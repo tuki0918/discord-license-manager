@@ -66,6 +66,7 @@ const LicenseForm: FC<{
 			code: defaultValues?.code || "",
 			status: defaultValues?.status || "enable",
 			expired_at: defaultValues?.expired_at || new Date(),
+			discord_grant_role_id: defaultValues?.discord_grant_role_id || "",
 		},
 	});
 
@@ -199,7 +200,7 @@ const LicenseForm: FC<{
 							<FormItem>
 								<FormLabel>Grant role</FormLabel>
 								<FormControl>
-									<Input placeholder="discord_grant_role_id" {...field} />
+									<Input placeholder="role id" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
