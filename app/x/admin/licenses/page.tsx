@@ -5,7 +5,20 @@ import { PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 
 export default async function Page() {
-	const licenses = await prisma.license.findMany();
+	const licenses = await prisma.license.findMany({
+		// Include the active redeem licenses count
+		include: {
+			_count: {
+				select: {
+					redeemLicenses: {
+						where: { status: "enable" },
+					},
+				},
+			},
+		},
+	});
+
+	console.log(licenses);
 
 	return (
 		<div className="container mx-auto">

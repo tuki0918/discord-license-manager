@@ -14,7 +14,9 @@ import { Check, CircleX } from "lucide-react";
 import type { FC } from "react";
 
 const LicenseTable: FC<{
-	licenses: LicenseType[];
+	licenses: (LicenseType & {
+		_count: { redeemLicenses: number };
+	})[];
 }> = ({ licenses }) => {
 	return (
 		<div className="rounded-xl border bg-card text-card-foreground shadow p-2">
@@ -27,6 +29,7 @@ const LicenseTable: FC<{
 						<TableHead>STATUS</TableHead>
 						<TableHead>ROLE_ID</TableHead>
 						<TableHead>EXPIRED_AT</TableHead>
+						<TableHead>ALIVE</TableHead>
 						<TableHead />
 					</TableRow>
 				</TableHeader>
@@ -57,6 +60,11 @@ const LicenseTable: FC<{
 								<TableCell>{license.discord_grant_role_id}</TableCell>
 								<TableCell>
 									{format(license.expired_at, "yyyy/MM/dd HH:mm")}
+								</TableCell>
+								<TableCell className="text-center">
+									{new Intl.NumberFormat().format(
+										license._count.redeemLicenses,
+									)}
 								</TableCell>
 								<TableCell>
 									<LicenseTableRowAction license={license} />
