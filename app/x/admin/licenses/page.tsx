@@ -1,5 +1,8 @@
 import LicenseTable from "@/components/LicenseTable";
+import { buttonVariants } from "@/components/ui/button";
 import prisma from "@/libs/db";
+import { PlusCircleIcon } from "lucide-react";
+import Link from "next/link";
 
 export default async function Page() {
 	const licenses = await prisma.license.findMany();
@@ -8,9 +11,17 @@ export default async function Page() {
 		<div className="container mx-auto">
 			<div className="h-screen flex items-center justify-center">
 				<div>
-					<div className="mb-4">
-						<h2 className="text-3xl font-bold">License</h2>
-						<p className="text-muted-foreground">Manage your licenses here.</p>
+					<div className="mb-4 flex justify-between items-end">
+						<div>
+							<h2 className="text-3xl font-bold">License</h2>
+							<p className="text-muted-foreground">
+								Manage your licenses here.
+							</p>
+						</div>
+						<Link href="/x/admin/licenses/new" className={buttonVariants()}>
+							<PlusCircleIcon className="h-4 w-4" />
+							New
+						</Link>
 					</div>
 					<div>
 						<LicenseTable licenses={licenses} />
