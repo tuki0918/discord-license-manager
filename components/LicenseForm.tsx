@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
 	Form,
 	FormControl,
@@ -11,16 +12,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/libs/utils";
 import { deleteItem, storeItem } from "@/usecases/forms/license";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
-import { useRouter } from "next/router";
+import { format } from "date-fns";
+import { CalendarIcon, LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -60,7 +68,7 @@ const LicenseForm: FC<{
 			setIsLoading(true);
 			await storeItem(itemId, values);
 			setIsLoading(false);
-			router.push("/dashboard");
+			router.push("/licenses");
 		},
 		[itemId, router],
 	);
@@ -75,7 +83,7 @@ const LicenseForm: FC<{
 			setIsLoadingDelete(true);
 			await deleteItem(itemId);
 			setIsLoadingDelete(false);
-			router.push("/dashboard");
+			router.push("/licenses");
 		}
 	}, [itemId, router]);
 
@@ -104,7 +112,7 @@ const LicenseForm: FC<{
 							<FormItem>
 								<FormLabel>Code</FormLabel>
 								<FormControl>
-									<Input placeholder="code" {...field} />
+									<Input placeholder="code" {...field} disabled={!isCreate} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -131,6 +139,48 @@ const LicenseForm: FC<{
 										<SelectItem value="disabled">disabled</SelectItem>
 									</SelectContent>
 								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<FormField
+						control={form.control}
+						name="expired_at"
+						render={({ field }) => (
+							<FormItem className="flex flex-col">
+								<FormLabel>Expired At</FormLabel>
+								<Popover>
+									<PopoverTrigger asChild>
+										<FormControl>
+											<Button
+												variant={"outline"}
+												className={cn(
+													"w-[240px] pl-3 text-left font-normal",
+													!field.value && "text-muted-foreground",
+												)}
+											>
+												{field.value ? (
+													format(field.value, "yyyy/MM/dd HH:mm")
+												) : (
+													<span>Pick a date</span>
+												)}
+												<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+											</Button>
+										</FormControl>
+									</PopoverTrigger>
+									<PopoverContent className="w-auto p-0" align="start">
+										<Calendar
+											mode="single"
+											selected={field.value}
+											onSelect={field.onChange}
+											disabled={(date) =>
+												date > new Date() || date < new Date("1900-01-01")
+											}
+											initialFocus
+										/>
+									</PopoverContent>
+								</Popover>
 								<FormMessage />
 							</FormItem>
 						)}
