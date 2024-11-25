@@ -25,7 +25,7 @@ const LicenseTableRowAction: FC<{
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-[160px]">
-				<Link href={`/licenses/${license.id}/edit`}>
+				<Link href={`/x/admin/licenses/${license.id}/edit`}>
 					<DropdownMenuItem className="hover:cursor-pointer">
 						Edit
 					</DropdownMenuItem>

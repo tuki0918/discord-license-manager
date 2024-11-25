@@ -74,7 +74,7 @@ const LicenseForm: FC<{
 			setIsLoading(true);
 			await storeItem(itemId, values);
 			setIsLoading(false);
-			router.push("/licenses");
+			router.push("/x/admin/licenses");
 		},
 		[itemId, router],
 	);
@@ -89,7 +89,7 @@ const LicenseForm: FC<{
 			setIsLoadingDelete(true);
 			await deleteItem(itemId);
 			setIsLoadingDelete(false);
-			router.push("/licenses");
+			router.push("/x/admin/licenses");
 		}
 	}, [itemId, router]);
 
