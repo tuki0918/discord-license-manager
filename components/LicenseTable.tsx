@@ -1,4 +1,5 @@
 import LicenseTableRowAction from "@/components/LicenseTableRowAction";
+import { buttonVariants } from "@/components/ui/button";
 import {
 	Table,
 	TableBody,
@@ -11,6 +12,7 @@ import type { LicenseType } from "@/domain/models";
 import { cn } from "@/libs/utils";
 import { format } from "date-fns";
 import { Check, CircleX } from "lucide-react";
+import Link from "next/link";
 import type { FC } from "react";
 
 const LicenseTable: FC<{
@@ -23,13 +25,13 @@ const LicenseTable: FC<{
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>ID</TableHead>
-						<TableHead>CODE</TableHead>
+						<TableHead className="text-center">ID</TableHead>
+						<TableHead className="text-center">CODE</TableHead>
 						<TableHead>NAME</TableHead>
-						<TableHead>STATUS</TableHead>
+						<TableHead className="text-center">STATUS</TableHead>
 						<TableHead>ROLE_ID</TableHead>
 						<TableHead>EXPIRED_AT</TableHead>
-						<TableHead>ALIVE</TableHead>
+						<TableHead className="text-center">ALIVE</TableHead>
 						<TableHead />
 					</TableRow>
 				</TableHeader>
@@ -43,7 +45,16 @@ const LicenseTable: FC<{
 								})}
 							>
 								<TableCell className="text-center">{license.id}</TableCell>
-								<TableCell>{license.code}</TableCell>
+								<TableCell className="text-center">
+									<Link
+										href={`/x/admin/licenses/${license.id}`}
+										className={buttonVariants({
+											variant: "ghost",
+										})}
+									>
+										{license.code}
+									</Link>
+								</TableCell>
 								<TableCell>{license.name}</TableCell>
 								<TableCell className="text-center">
 									<span className="sr-only">
@@ -73,7 +84,7 @@ const LicenseTable: FC<{
 						))
 					) : (
 						<TableRow>
-							<TableCell colSpan={7} className="text-center">
+							<TableCell colSpan={8} className="text-center">
 								No results.
 							</TableCell>
 						</TableRow>
