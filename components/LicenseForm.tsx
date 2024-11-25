@@ -47,7 +47,9 @@ export const formSchema = z.object({
 	code: LicenseCodeSchema,
 	status: z.enum(["enable", "disabled"]),
 	expired_at: z.date(),
-	discord_grant_role_id: z.string(),
+	discord_grant_role_id: z.string().min(2, {
+		message: "Role_id must be at least 2 characters.",
+	}),
 });
 
 const LicenseForm: FC<{
