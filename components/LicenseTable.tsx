@@ -1,3 +1,4 @@
+import LicenseTableRowAction from "@/components/LicenseTableRowAction";
 import {
 	Table,
 	TableBody,
@@ -22,19 +23,31 @@ const LicenseTable: FC<{
 					<TableHead>STATUS</TableHead>
 					<TableHead>ROLE_ID</TableHead>
 					<TableHead>EXPIRED_AT</TableHead>
+					<TableHead />
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{licenses.map((license) => (
-					<TableRow key={license.id}>
-						<TableCell>{license.id}</TableCell>
-						<TableCell>{license.code}</TableCell>
-						<TableCell>{license.name}</TableCell>
-						<TableCell>{license.status}</TableCell>
-						<TableCell>{license.discord_grant_role_id}</TableCell>
-						<TableCell>{license.expired_at.toDateString()}</TableCell>
+				{licenses.length > 0 ? (
+					licenses.map((license) => (
+						<TableRow key={license.id}>
+							<TableCell>{license.id}</TableCell>
+							<TableCell>{license.code}</TableCell>
+							<TableCell>{license.name}</TableCell>
+							<TableCell>{license.status}</TableCell>
+							<TableCell>{license.discord_grant_role_id}</TableCell>
+							<TableCell>{license.expired_at.toDateString()}</TableCell>
+							<TableCell>
+								<LicenseTableRowAction license={license} />
+							</TableCell>
+						</TableRow>
+					))
+				) : (
+					<TableRow>
+						<TableCell colSpan={7} className="text-center">
+							No results.
+						</TableCell>
 					</TableRow>
-				))}
+				)}
 			</TableBody>
 		</Table>
 	);
