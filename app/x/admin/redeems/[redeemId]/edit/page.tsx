@@ -1,7 +1,7 @@
 import RedeemLicenseForm from "@/components/RedeemLicenseForm";
 import prisma from "@/libs/db";
+import { Link } from "@/utils/i18n/routing";
 import { User } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type PageProps = {

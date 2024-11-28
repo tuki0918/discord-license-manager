@@ -1,7 +1,7 @@
 import LicenseForm from "@/components/LicenseForm";
+import { Link } from "@/utils/i18n/routing";
 import { generateLicenseKey } from "@/utils/keygen";
 import { Key } from "lucide-react";
-import Link from "next/link";
 
 export default async function Page() {
 	return (

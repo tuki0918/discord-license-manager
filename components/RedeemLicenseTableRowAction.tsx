@@ -6,8 +6,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { RedeemLicenseType } from "@/domain/models";
+import { Link } from "@/utils/i18n/routing";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import Link from "next/link";
 import type { FC } from "react";
 
 const RedeemLicenseTableRowAction: FC<{
