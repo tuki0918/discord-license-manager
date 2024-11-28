@@ -29,7 +29,6 @@ const LicenseTable: FC<{
 						<TableHead className="text-center">CODE</TableHead>
 						<TableHead>NAME</TableHead>
 						<TableHead>EXPIRED_AT</TableHead>
-						<TableHead>ROLE_ID</TableHead>
 						<TableHead className="text-center">STATUS</TableHead>
 						<TableHead className="text-center">ALIVE</TableHead>
 						<TableHead />
@@ -45,21 +44,11 @@ const LicenseTable: FC<{
 								})}
 							>
 								<TableCell className="text-center">{license.id}</TableCell>
-								<TableCell className="text-center">
-									<Link
-										href={`/x/admin/licenses/${license.id}`}
-										className={buttonVariants({
-											variant: "ghost",
-										})}
-									>
-										{license.code}
-									</Link>
-								</TableCell>
+								<TableCell className="text-center">{license.code}</TableCell>
 								<TableCell>{license.name}</TableCell>
 								<TableCell>
 									{format(license.expired_at, "yyyy/MM/dd HH:mm")}
 								</TableCell>
-								<TableCell>{license.discord_grant_role_id}</TableCell>
 								<TableCell className="text-center">
 									<span className="sr-only">
 										{license.status === "enable" ? "Enabled" : "Disabled"}
@@ -74,9 +63,16 @@ const LicenseTable: FC<{
 									</span>
 								</TableCell>
 								<TableCell className="text-center">
-									{new Intl.NumberFormat().format(
-										license._count.redeemLicenses,
-									)}
+									<Link
+										href={`/x/admin/licenses/${license.id}`}
+										className={buttonVariants({
+											variant: "ghost",
+										})}
+									>
+										{new Intl.NumberFormat().format(
+											license._count.redeemLicenses,
+										)}
+									</Link>
 								</TableCell>
 								<TableCell>
 									<LicenseTableRowAction license={license} />
@@ -85,7 +81,7 @@ const LicenseTable: FC<{
 						))
 					) : (
 						<TableRow>
-							<TableCell colSpan={8} className="text-center">
+							<TableCell colSpan={7} className="text-center">
 								No results.
 							</TableCell>
 						</TableRow>

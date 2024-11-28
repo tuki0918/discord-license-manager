@@ -25,9 +25,7 @@ export default async function Page() {
 					<div className="mb-4 flex justify-between items-end">
 						<div>
 							<h2 className="text-3xl font-bold">License</h2>
-							<p className="text-muted-foreground">
-								Manage your licenses here.
-							</p>
+							<p className="text-muted-foreground">...</p>
 						</div>
 						<Link href="/x/admin/licenses/new" className={buttonVariants()}>
 							<PlusCircleIcon className="h-4 w-4" />
