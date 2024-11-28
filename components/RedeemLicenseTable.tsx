@@ -1,3 +1,4 @@
+import RedeemLicenseTableRowAction from "@/components/RedeemLicenseTableRowAction";
 import {
 	Table,
 	TableBody,
@@ -22,10 +23,10 @@ const RedeemLicenseTable: FC<{
 					<TableRow>
 						<TableHead className="text-center">ID</TableHead>
 						<TableHead className="text-center">CODE</TableHead>
-						<TableHead>REDEEMED_AT</TableHead>
 						<TableHead>DISCORD_ID</TableHead>
-						<TableHead>ROLE_ID</TableHead>
+						<TableHead>REDEEMED_AT</TableHead>
 						<TableHead className="text-center">ALIVE</TableHead>
+						<TableHead />
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -43,11 +44,10 @@ const RedeemLicenseTable: FC<{
 								<TableCell className="text-center">
 									{redeemLicense.code}
 								</TableCell>
+								<TableCell>{redeemLicense.discord_id}</TableCell>
 								<TableCell>
 									{format(redeemLicense.redeemed_at, "yyyy/MM/dd HH:mm:ss")}
 								</TableCell>
-								<TableCell>{redeemLicense.discord_id}</TableCell>
-								<TableCell>{redeemLicense.discord_grant_role_id}</TableCell>
 								<TableCell className="text-center">
 									<span className="sr-only">
 										{redeemLicense.status === "enable" ? "Enabled" : "Disabled"}
@@ -60,6 +60,9 @@ const RedeemLicenseTable: FC<{
 											})}
 										/>
 									</span>
+								</TableCell>
+								<TableCell>
+									<RedeemLicenseTableRowAction redeemLicense={redeemLicense} />
 								</TableCell>
 							</TableRow>
 						))
