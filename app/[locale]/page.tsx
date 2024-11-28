@@ -1,12 +1,7 @@
-import { Link } from "@/utils/i18n/routing";
-import { useTranslations } from "next-intl";
-
-export default function HomePage() {
-	const t = useTranslations("HomePage");
+export default function Page() {
 	return (
-		<div>
-			<h1>{t("title")}</h1>
-			<Link href="/about">{t("about")}</Link>
+		<div className="h-screen flex items-center justify-center">
+			<h1>Hello World</h1>
 		</div>
 	);
 }
