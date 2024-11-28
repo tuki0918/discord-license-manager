@@ -11,7 +11,7 @@ import {
 import type { LicenseType } from "@/domain/models";
 import { cn } from "@/libs/utils";
 import { format } from "date-fns";
-import { Check, CircleX } from "lucide-react";
+import { Check } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -28,9 +28,9 @@ const LicenseTable: FC<{
 						<TableHead className="text-center">ID</TableHead>
 						<TableHead className="text-center">CODE</TableHead>
 						<TableHead>NAME</TableHead>
-						<TableHead className="text-center">STATUS</TableHead>
-						<TableHead>ROLE_ID</TableHead>
 						<TableHead>EXPIRED_AT</TableHead>
+						<TableHead>ROLE_ID</TableHead>
+						<TableHead className="text-center">STATUS</TableHead>
 						<TableHead className="text-center">ALIVE</TableHead>
 						<TableHead />
 					</TableRow>
@@ -56,21 +56,22 @@ const LicenseTable: FC<{
 									</Link>
 								</TableCell>
 								<TableCell>{license.name}</TableCell>
+								<TableCell>
+									{format(license.expired_at, "yyyy/MM/dd HH:mm")}
+								</TableCell>
+								<TableCell>{license.discord_grant_role_id}</TableCell>
 								<TableCell className="text-center">
 									<span className="sr-only">
 										{license.status === "enable" ? "Enabled" : "Disabled"}
 									</span>
 									<span className="flex items-center justify-center">
-										{license.status === "enable" ? (
-											<Check className="text-green-600" />
-										) : (
-											<CircleX className="text-gray-400" />
-										)}
+										<Check
+											className={cn({
+												"text-green-600": license.status === "enable",
+												"text-gray-400": license.status === "disabled",
+											})}
+										/>
 									</span>
-								</TableCell>
-								<TableCell>{license.discord_grant_role_id}</TableCell>
-								<TableCell>
-									{format(license.expired_at, "yyyy/MM/dd HH:mm")}
 								</TableCell>
 								<TableCell className="text-center">
 									{new Intl.NumberFormat().format(

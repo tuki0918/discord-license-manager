@@ -9,7 +9,7 @@ import {
 import type { RedeemLicenseType } from "@/domain/models";
 import { cn } from "@/libs/utils";
 import { format } from "date-fns";
-import { Check, CircleX } from "lucide-react";
+import { Check } from "lucide-react";
 import type { FC } from "react";
 
 const RedeemLicenseTable: FC<{
@@ -53,11 +53,12 @@ const RedeemLicenseTable: FC<{
 										{redeemLicense.status === "enable" ? "Enabled" : "Disabled"}
 									</span>
 									<span className="flex items-center justify-center">
-										{redeemLicense.status === "enable" ? (
-											<Check className="text-green-600" />
-										) : (
-											<CircleX className="text-gray-400" />
-										)}
+										<Check
+											className={cn({
+												"text-green-600": redeemLicense.status === "enable",
+												"text-gray-400": redeemLicense.status === "disabled",
+											})}
+										/>
 									</span>
 								</TableCell>
 							</TableRow>
