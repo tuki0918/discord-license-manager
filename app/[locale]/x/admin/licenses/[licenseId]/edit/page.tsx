@@ -1,7 +1,7 @@
 import LicenseForm from "@/components/LicenseForm";
 import prisma from "@/libs/db";
+import { Link } from "@/utils/i18n/routing";
 import { Key } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type PageProps = {

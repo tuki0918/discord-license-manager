@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/table";
 import type { LicenseType } from "@/domain/models";
 import { cn } from "@/libs/utils";
+import { Link } from "@/utils/i18n/routing";
 import { format } from "date-fns";
 import { Check } from "lucide-react";
-import Link from "next/link";
 import type { FC } from "react";
 
 const LicenseTable: FC<{

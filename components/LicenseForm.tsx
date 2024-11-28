@@ -25,10 +25,10 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
 import { deleteItem, storeItem } from "@/usecases/forms/license";
+import { useRouter } from "@/utils/i18n/routing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";

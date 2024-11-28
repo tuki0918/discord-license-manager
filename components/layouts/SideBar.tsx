@@ -2,8 +2,8 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/libs/utils";
+import { Link } from "@/utils/i18n/routing";
 import { Key, Users } from "lucide-react";
-import Link from "next/link";
 import type { FC } from "react";
 
 import { usePathname } from "next/navigation";

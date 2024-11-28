@@ -1,8 +1,8 @@
 import LicenseTable from "@/components/LicenseTable";
 import { buttonVariants } from "@/components/ui/button";
 import prisma from "@/libs/db";
+import { Link } from "@/utils/i18n/routing";
 import { PlusCircleIcon } from "lucide-react";
-import Link from "next/link";
 
 export default async function Page() {
 	const licenses = await prisma.license.findMany({
