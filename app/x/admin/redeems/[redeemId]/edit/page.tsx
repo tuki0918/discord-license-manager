@@ -1,3 +1,4 @@
+import RedeemLicenseForm from "@/components/RedeemLicenseForm";
 import prisma from "@/libs/db";
 import { User } from "lucide-react";
 import Link from "next/link";
@@ -30,7 +31,9 @@ export default async function Page({ params }: PageProps) {
 							</Link>
 						</h1>
 					</div>
-					<div>...</div>
+					<div>
+						<RedeemLicenseForm itemId={itemId} defaultValues={data} />
+					</div>
 				</div>
 			</div>
 		</div>
