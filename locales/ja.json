@@ -2,5 +2,8 @@
 	"HomePage": {
 		"title": "こんにちは",
 		"about": "アバウトページへ"
+	},
+	"Components/SideNavUser": {
+		"menu/logout": "ログアウト"
 	}
 }

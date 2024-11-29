@@ -1,6 +1,8 @@
-import SideBar from "@/components/layouts/SideBar";
+import SideNav from "@/components/layouts/SideNav";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/utils/auth";
 import { env } from "@/utils/dotenv";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function PageLayout({
@@ -8,17 +10,21 @@ export default async function PageLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const cookieStore = cookies();
+	const isSidebarOpen = cookieStore.get("sidebar:state")?.value === "true";
+
 	const session = await auth();
 	// If the user is not an admin, redirect to the homepage
 	if (session?.user?.email !== env.ADMIN_EMAIL) redirect("/");
 
 	return (
 		<>
-			<div className="grid grid-cols-5">
-				<SideBar />
-
-				<div className="col-span-4 border-l">{children}</div>
-			</div>
+			<SidebarProvider defaultOpen={isSidebarOpen}>
+				<SideNav user={session.user} />
+				<SidebarInset>
+					<main>{children}</main>
+				</SidebarInset>
+			</SidebarProvider>
 		</>
 	);
 }
