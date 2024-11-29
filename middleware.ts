@@ -1,7 +1,10 @@
+import { auth } from "@/utils/auth";
 import { routing } from "@/utils/i18n/routing";
 import createMiddleware from "next-intl/middleware";
 
-export default createMiddleware(routing);
+export const middleware = auth((req) => {
+	return createMiddleware(routing)(req);
+});
 
 export const config = {
 	// Match only internationalized pathnames
