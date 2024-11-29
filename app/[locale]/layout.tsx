@@ -1,5 +1,6 @@
 import { routing } from "@/utils/i18n";
 import type { Locale } from "@/utils/i18n";
+import { SessionProvider } from "next-auth/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import localFont from "next/font/local";
@@ -37,9 +38,11 @@ export default async function LocaleLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<NextIntlClientProvider messages={messages}>
-					{children}
-				</NextIntlClientProvider>
+				<SessionProvider>
+					<NextIntlClientProvider messages={messages}>
+						{children}
+					</NextIntlClientProvider>
+				</SessionProvider>
 			</body>
 		</html>
 	);
