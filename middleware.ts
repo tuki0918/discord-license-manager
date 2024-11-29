@@ -1,5 +1,5 @@
 import { auth } from "@/utils/auth";
-import { routing } from "@/utils/i18n/routing";
+import { routing } from "@/utils/i18n";
 import createMiddleware from "next-intl/middleware";
 
 export const middleware = auth((req) => {

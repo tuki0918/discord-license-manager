@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import type { LicenseType } from "@/domain/models";
 import { cn } from "@/libs/utils";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { format } from "date-fns";
 import { Check } from "lucide-react";
 import type { FC } from "react";

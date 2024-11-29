@@ -1,7 +1,7 @@
 import LicenseTable from "@/components/LicenseTable";
 import { buttonVariants } from "@/components/ui/button";
 import prisma from "@/libs/db";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { PlusCircleIcon } from "lucide-react";
 
 export default async function Page() {

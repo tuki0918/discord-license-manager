@@ -2,7 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/libs/utils";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { Key, Users } from "lucide-react";
 import type { FC } from "react";
 

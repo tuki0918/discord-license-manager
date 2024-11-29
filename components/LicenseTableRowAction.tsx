@@ -6,7 +6,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { LicenseType } from "@/domain/models";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import type { FC } from "react";
 

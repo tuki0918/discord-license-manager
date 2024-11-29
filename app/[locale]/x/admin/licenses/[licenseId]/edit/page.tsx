@@ -1,6 +1,6 @@
 import LicenseForm from "@/components/LicenseForm";
 import prisma from "@/libs/db";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { Key } from "lucide-react";
 import { notFound } from "next/navigation";
 

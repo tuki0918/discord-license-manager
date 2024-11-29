@@ -1,6 +1,6 @@
 import RedeemLicenseForm from "@/components/RedeemLicenseForm";
 import prisma from "@/libs/db";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { User } from "lucide-react";
 import { notFound } from "next/navigation";
 

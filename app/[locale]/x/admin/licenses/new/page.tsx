@@ -1,5 +1,5 @@
 import LicenseForm from "@/components/LicenseForm";
-import { Link } from "@/utils/i18n/routing";
+import { Link } from "@/utils/i18n";
 import { generateLicenseKey } from "@/utils/keygen";
 import { Key } from "lucide-react";
 

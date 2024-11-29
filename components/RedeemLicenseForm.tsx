@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
 import { deleteItem, storeItem } from "@/usecases/forms/redeemLicense";
-import { useRouter } from "@/utils/i18n/routing";
+import { useRouter } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
