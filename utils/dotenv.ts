@@ -6,6 +6,7 @@ const schema = g.envObject({
 	AUTH_SECRET: g.envString(),
 	AUTH_DISCORD_ID: g.envString(),
 	AUTH_DISCORD_SECRET: g.envString(),
+	ADMIN_EMAIL: g.envString(),
 });
 
 export const env = validateEnv(schema);
