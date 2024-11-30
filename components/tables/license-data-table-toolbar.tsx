@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Table } from "@tanstack/react-table";
 import { Check, Minus, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 export const statuses = [
@@ -27,7 +29,15 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
 	table,
 }: DataTableToolbarProps<TData>) {
+	const searchParams = useSearchParams();
+	const code = searchParams.get("code");
 	const isFiltered = table.getState().columnFilters.length > 0;
+
+	useEffect(() => {
+		if (code) {
+			table.getColumn("code")?.setFilterValue(code);
+		}
+	}, [code, table]);
 
 	return (
 		<div className="flex items-center justify-between">

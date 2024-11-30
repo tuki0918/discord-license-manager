@@ -80,7 +80,7 @@ export const columns: ColumnDef<
 			return (
 				<div className="text-center">
 					<Link
-						href={`/x/admin/licenses/${license.id}`}
+						href={`/x/admin/redeems?code=${license.code}`}
 						className={buttonVariants({
 							variant: "ghost",
 						})}
