@@ -6,11 +6,9 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
-import { PlusCircleIcon } from "lucide-react";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,12 +33,6 @@ export default async function Page() {
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-				</div>
-				<div className="px-4">
-					<Button disabled>
-						<PlusCircleIcon className="h-4 w-4" />
-						New
-					</Button>
 				</div>
 			</header>
 			<div className="p-4 pt-0">
