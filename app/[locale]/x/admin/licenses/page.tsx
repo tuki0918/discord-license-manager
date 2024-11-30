@@ -1,4 +1,5 @@
-import LicenseTable from "@/components/LicenseTable";
+import { DataTable } from "@/components/tables/data-table";
+import { columns } from "@/components/tables/license-columns";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -35,7 +36,7 @@ export default async function Page() {
 
 	return (
 		<>
-			<header className="flex h-16 shrink-0 items-center gap-2">
+			<header className="flex h-16 shrink-0 items-center justify-between gap-2">
 				<div className="flex items-center gap-2 px-4">
 					<SidebarTrigger className="-ml-1" />
 					<Separator orientation="vertical" className="mr-2 h-4" />
@@ -47,17 +48,15 @@ export default async function Page() {
 						</BreadcrumbList>
 					</Breadcrumb>
 				</div>
-			</header>
-			<div className="p-4 pt-0">
-				<div className="mb-4 flex justify-end items-center">
+				<div className="px-4">
 					<Link href="/x/admin/licenses/new" className={buttonVariants()}>
 						<PlusCircleIcon className="h-4 w-4" />
 						New
 					</Link>
 				</div>
-				<div>
-					<LicenseTable licenses={licenses} />
-				</div>
+			</header>
+			<div className="p-4 pt-0">
+				<DataTable columns={columns} data={licenses} />
 			</div>
 		</>
 	);
