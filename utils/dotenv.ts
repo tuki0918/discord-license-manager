@@ -8,6 +8,8 @@ const privateSchema = g.envObject({
 	AUTH_SECRET: g.envString(),
 	AUTH_DISCORD_ID: g.envString(),
 	AUTH_DISCORD_SECRET: g.envString(),
+	DISCORD_BOT_TOKEN: g.envString(),
+	DISCORD_GUILD_ID: g.envString(),
 	ADMIN_EMAIL: g.envString(),
 });
 
