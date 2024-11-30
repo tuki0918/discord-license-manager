@@ -5,9 +5,11 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
+import { PlusCircleIcon } from "lucide-react";
 
 export default async function Page() {
 	const redeemLicenses = await prisma.redeemLicense.findMany();
@@ -28,7 +30,15 @@ export default async function Page() {
 				</div>
 			</header>
 			<div className="p-4 pt-0">
-				<RedeemLicenseTable redeemLicenses={redeemLicenses} />
+				<div className="mb-4 flex justify-end items-center">
+					<Button disabled>
+						<PlusCircleIcon className="h-4 w-4" />
+						New
+					</Button>
+				</div>
+				<div>
+					<RedeemLicenseTable redeemLicenses={redeemLicenses} />
+				</div>
 			</div>
 		</>
 	);
