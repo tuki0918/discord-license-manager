@@ -11,6 +11,13 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
 import { Link } from "@/utils/i18n";
 import { PlusCircleIcon } from "lucide-react";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "Licenses",
+	};
+}
 
 export default async function Page() {
 	const licenses = await prisma.license.findMany({

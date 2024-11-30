@@ -11,7 +11,14 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
 import { Link } from "@/utils/i18n";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "Edit Redeem",
+	};
+}
 
 type PageProps = {
 	params: { redeemId: string };

@@ -11,6 +11,13 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Link } from "@/utils/i18n";
 import { generateLicenseKey } from "@/utils/keygen";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "New License",
+	};
+}
 
 export default async function Page() {
 	return (

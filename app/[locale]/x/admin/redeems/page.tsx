@@ -10,6 +10,13 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
 import { PlusCircleIcon } from "lucide-react";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "Redeems",
+	};
+}
 
 export default async function Page() {
 	const redeemLicenses = await prisma.redeemLicense.findMany();

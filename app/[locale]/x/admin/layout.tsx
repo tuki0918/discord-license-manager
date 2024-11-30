@@ -1,9 +1,19 @@
 import SideNav from "@/components/layouts/SideNav";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/constants";
 import { auth } from "@/utils/auth";
 import { env } from "@/utils/dotenv";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+	title: {
+		template: `%s - ${SITE_NAME}`,
+		default: "Dashboard",
+	},
+	description: SITE_DESCRIPTION,
+};
 
 export default async function PageLayout({
 	children,
