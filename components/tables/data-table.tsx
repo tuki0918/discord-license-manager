@@ -1,5 +1,6 @@
 "use client";
 
+import { DataTablePagination } from "@/components/tables/data-table-pagination";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -30,6 +31,7 @@ import type {
 	SortingState,
 	VisibilityState,
 } from "@tanstack/react-table";
+import { Settings2 } from "lucide-react";
 import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -37,7 +39,7 @@ interface DataTableProps<TData, TValue> {
 	data: TData[];
 }
 
-export function LicenseDataTable<TData, TValue>({
+export function DataTable<TData, TValue>({
 	columns,
 	data,
 }: DataTableProps<TData, TValue>) {
@@ -70,13 +72,17 @@ export function LicenseDataTable<TData, TValue>({
 					onChange={(event) =>
 						table.getColumn("code")?.setFilterValue(event.target.value)
 					}
-					className="max-w-sm"
+					className="h-8 max-w-sm"
 				/>
-
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="ml-auto">
-							Columns
+						<Button
+							variant="outline"
+							size="sm"
+							className="ml-auto hidden h-8 lg:flex"
+						>
+							<Settings2 />
+							View
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
@@ -150,24 +156,7 @@ export function LicenseDataTable<TData, TValue>({
 					</TableBody>
 				</Table>
 			</div>
-			<div className="flex items-center justify-end space-x-2 py-4">
-				<Button
-					variant="outline"
-					size="sm"
-					onClick={() => table.previousPage()}
-					disabled={!table.getCanPreviousPage()}
-				>
-					Previous
-				</Button>
-				<Button
-					variant="outline"
-					size="sm"
-					onClick={() => table.nextPage()}
-					disabled={!table.getCanNextPage()}
-				>
-					Next
-				</Button>
-			</div>
+			<DataTablePagination table={table} />
 		</div>
 	);
 }
