@@ -19,6 +19,7 @@
 		"build-storybook": "storybook build"
 	},
 	"dependencies": {
+		"@discordjs/rest": "^2.4.0",
 		"@hookform/resolvers": "^3.9.1",
 		"@prisma/client": "^5.22.0",
 		"@radix-ui/react-accordion": "^1.2.1",
@@ -52,6 +53,7 @@
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0",
 		"date-fns": "^3.6.0",
+		"discord-api-types": "^0.37.110",
 		"embla-carousel-react": "^8.5.1",
 		"input-otp": "^1.4.1",
 		"lucide-react": "^0.460.0",
