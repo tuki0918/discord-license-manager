@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { routing } from "@/utils/i18n";
 import type { Locale } from "@/utils/i18n";
 import { SessionProvider } from "next-auth/react";
@@ -40,7 +41,8 @@ export default async function LocaleLayout({
 			>
 				<SessionProvider>
 					<NextIntlClientProvider messages={messages}>
-						{children}
+						<div>{children}</div>
+						<Toaster />
 					</NextIntlClientProvider>
 				</SessionProvider>
 			</body>

@@ -24,6 +24,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/libs/utils";
 import { deleteItem, storeItem } from "@/usecases/forms/redeemLicense";
 import { useRouter } from "@/utils/i18n";
@@ -56,6 +57,7 @@ const RedeemLicenseForm: FC<{
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -73,9 +75,17 @@ const RedeemLicenseForm: FC<{
 			setIsLoading(true);
 			await storeItem(itemId, values);
 			setIsLoading(false);
+
+			toast({
+				title: "Success",
+				description: isCreate
+					? `Item created: ${values.code}`
+					: `Item updated: ${values.code}`,
+			});
+
 			router.push("/x/admin/redeems");
 		},
-		[itemId, router],
+		[itemId, toast, router, isCreate],
 	);
 
 	const handleDelete = useCallback(async () => {
@@ -88,9 +98,15 @@ const RedeemLicenseForm: FC<{
 			setIsLoadingDelete(true);
 			await deleteItem(itemId);
 			setIsLoadingDelete(false);
+
+			toast({
+				title: "Success",
+				description: "Item deleted",
+			});
+
 			router.push("/x/admin/redeems");
 		}
-	}, [itemId, router]);
+	}, [itemId, toast, router]);
 
 	return (
 		<Form {...form}>
