@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Link } from "@/utils/i18n";
 import { generateLicenseKey } from "@/utils/keygen";
 
 export default async function Page() {
@@ -21,7 +22,9 @@ export default async function Page() {
 					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem className="hidden md:block">
-								<BreadcrumbLink href=".">Licenses</BreadcrumbLink>
+								<BreadcrumbLink asChild>
+									<Link href="/x/admin/licenses">Licenses</Link>
+								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className="hidden md:block" />
 							<BreadcrumbItem>

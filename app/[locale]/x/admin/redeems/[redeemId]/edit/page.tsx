@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
+import { Link } from "@/utils/i18n";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -37,7 +38,9 @@ export default async function Page({ params }: PageProps) {
 					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem className="hidden md:block">
-								<BreadcrumbLink href=".">Redeems</BreadcrumbLink>
+								<BreadcrumbLink asChild>
+									<Link href="/x/admin/redeems">Redeems</Link>
+								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className="hidden md:block" />
 							<BreadcrumbItem>
