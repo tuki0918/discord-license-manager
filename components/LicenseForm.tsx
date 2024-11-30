@@ -48,14 +48,15 @@ export const formSchema = z.object({
 	status: z.enum(["enable", "disabled"]),
 	expired_at: z.date(),
 	discord_grant_role_id: z.string().min(2, {
-		message: "Role id must be at least 2 characters.",
+		message: "Role id must be selected.",
 	}),
 });
 
 const LicenseForm: FC<{
 	itemId?: number;
 	defaultValues?: Partial<z.infer<typeof formSchema>>;
-}> = ({ itemId = null, defaultValues }) => {
+	roles: { id: string; name: string }[];
+}> = ({ itemId = null, defaultValues, roles }) => {
 	const isCreate = !itemId;
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
@@ -138,17 +139,20 @@ const LicenseForm: FC<{
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Status</FormLabel>
-							<Select onValueChange={field.onChange} defaultValue={field.value}>
-								<FormControl>
+							<FormControl>
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+								>
 									<SelectTrigger>
 										<SelectValue placeholder="Select a item" />
 									</SelectTrigger>
-								</FormControl>
-								<SelectContent>
-									<SelectItem value="enable">enable</SelectItem>
-									<SelectItem value="disabled">disabled</SelectItem>
-								</SelectContent>
-							</Select>
+									<SelectContent>
+										<SelectItem value="enable">enable</SelectItem>
+										<SelectItem value="disabled">disabled</SelectItem>
+									</SelectContent>
+								</Select>
+							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -203,7 +207,32 @@ const LicenseForm: FC<{
 						<FormItem>
 							<FormLabel>Grant role</FormLabel>
 							<FormControl>
-								<Input placeholder="role id" {...field} />
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+									disabled={!isCreate}
+								>
+									<SelectTrigger>
+										<SelectValue placeholder="Select a item" />
+									</SelectTrigger>
+									<SelectContent>
+										{roles.map((role) => (
+											<SelectItem key={role.id} value={role.id}>
+												{role.name} | {role.id}
+											</SelectItem>
+										))}
+										{
+											// Show not found roles
+											field.value &&
+												roles.filter((role) => role.id === field.value)
+													.length === 0 && (
+													<SelectItem value={field.value}>
+														Not found | {field.value}
+													</SelectItem>
+												)
+										}
+									</SelectContent>
+								</Select>
 							</FormControl>
 							<FormMessage />
 						</FormItem>

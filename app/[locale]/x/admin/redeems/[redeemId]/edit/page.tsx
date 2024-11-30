@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
+import { getGuildRoles } from "@/libs/discord";
 import { Link } from "@/utils/i18n";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -36,6 +37,8 @@ export default async function Page({ params }: PageProps) {
 		notFound();
 	}
 
+	const roles = await getGuildRoles();
+
 	return (
 		<>
 			<header className="flex h-16 shrink-0 items-center gap-2">
@@ -58,7 +61,11 @@ export default async function Page({ params }: PageProps) {
 				</div>
 			</header>
 			<div className="p-4 pt-0">
-				<RedeemLicenseForm itemId={itemId} defaultValues={data} />
+				<RedeemLicenseForm
+					itemId={itemId}
+					defaultValues={data}
+					roles={roles || []}
+				/>
 			</div>
 		</>
 	);

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { getGuildRoles } from "@/libs/discord";
 import { Link } from "@/utils/i18n";
 import { generateLicenseKey } from "@/utils/keygen";
 import type { Metadata } from "next";
@@ -20,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+	const roles = await getGuildRoles();
 	return (
 		<>
 			<header className="flex h-16 shrink-0 items-center gap-2">
@@ -46,6 +48,7 @@ export default async function Page() {
 					defaultValues={{
 						code: generateLicenseKey(),
 					}}
+					roles={roles || []}
 				/>
 			</div>
 		</>
