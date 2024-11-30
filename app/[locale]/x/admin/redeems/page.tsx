@@ -1,24 +1,35 @@
 import RedeemLicenseTable from "@/components/RedeemLicenseTable";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbList,
+	BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
 
 export default async function Page() {
 	const redeemLicenses = await prisma.redeemLicense.findMany();
 
 	return (
-		<div className="container mx-auto">
-			<div className="h-screen flex items-center justify-center">
-				<div>
-					<div className="mb-4 flex justify-between items-end">
-						<div>
-							<h2 className="text-3xl font-bold">Redeems</h2>
-							<p className="text-muted-foreground">...</p>
-						</div>
-					</div>
-					<div>
-						<RedeemLicenseTable redeemLicenses={redeemLicenses} />
-					</div>
+		<>
+			<header className="flex h-16 shrink-0 items-center gap-2">
+				<div className="flex items-center gap-2 px-4">
+					<SidebarTrigger className="-ml-1" />
+					<Separator orientation="vertical" className="mr-2 h-4" />
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem>
+								<BreadcrumbPage>Redeems</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
 				</div>
+			</header>
+			<div className="p-4 pt-0">
+				<RedeemLicenseTable redeemLicenses={redeemLicenses} />
 			</div>
-		</div>
+		</>
 	);
 }

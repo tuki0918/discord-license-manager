@@ -1,7 +1,15 @@
 import RedeemLicenseForm from "@/components/RedeemLicenseForm";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/libs/db";
-import { Link } from "@/utils/i18n";
-import { User } from "lucide-react";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -21,21 +29,27 @@ export default async function Page({ params }: PageProps) {
 	}
 
 	return (
-		<div className="container mx-auto">
-			<div className="h-screen flex items-center justify-center">
-				<div>
-					<div>
-						<h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 flex justify-center">
-							<Link href={"/x/admin/redeems"}>
-								<User color="#333333" size={48} />
-							</Link>
-						</h1>
-					</div>
-					<div>
-						<RedeemLicenseForm itemId={itemId} defaultValues={data} />
-					</div>
+		<>
+			<header className="flex h-16 shrink-0 items-center gap-2">
+				<div className="flex items-center gap-2 px-4">
+					<SidebarTrigger className="-ml-1" />
+					<Separator orientation="vertical" className="mr-2 h-4" />
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem className="hidden md:block">
+								<BreadcrumbLink href=".">Redeems</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator className="hidden md:block" />
+							<BreadcrumbItem>
+								<BreadcrumbPage>Edit</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
 				</div>
+			</header>
+			<div className="p-4 pt-0">
+				<RedeemLicenseForm itemId={itemId} defaultValues={data} />
 			</div>
-		</div>
+		</>
 	);
 }
