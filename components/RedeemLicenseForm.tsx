@@ -27,6 +27,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/libs/utils";
 import { deleteItem, storeItem } from "@/usecases/forms/redeemLicense";
+import { handleErrorWithLoading } from "@/utils/errorHandler";
 import { useRouter } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -58,6 +59,14 @@ const RedeemLicenseForm: FC<{
 	const [isLoading, setIsLoading] = useState(false);
 	const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 	const { toast } = useToast();
+	const handleError = useCallback(
+		handleErrorWithLoading(toast, setIsLoading),
+		[],
+	);
+	const handleErrorDelete = useCallback(
+		handleErrorWithLoading(toast, setIsLoadingDelete),
+		[],
+	);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -72,20 +81,22 @@ const RedeemLicenseForm: FC<{
 
 	const onSubmit = useCallback(
 		async (values: z.infer<typeof formSchema>) => {
-			setIsLoading(true);
-			await storeItem(itemId, values);
-			setIsLoading(false);
-
-			toast({
-				title: "Success",
-				description: isCreate
-					? `Item created: ${values.code}`
-					: `Item updated: ${values.code}`,
-			});
-
-			router.push("/x/admin/redeems");
+			await handleError(
+				async () => {
+					await storeItem(itemId, values);
+				},
+				(toast) => {
+					toast({
+						title: "Success",
+						description: isCreate
+							? `Item created: ${values.code}`
+							: `Item updated: ${values.code}`,
+					});
+					router.push("/x/admin/redeems");
+				},
+			);
 		},
-		[itemId, toast, router, isCreate],
+		[itemId, handleError, router, isCreate],
 	);
 
 	const handleDelete = useCallback(async () => {
@@ -95,18 +106,20 @@ const RedeemLicenseForm: FC<{
 
 		// TODO: dialog
 		if (confirm("Are you sure you want to delete this item?")) {
-			setIsLoadingDelete(true);
-			await deleteItem(itemId);
-			setIsLoadingDelete(false);
-
-			toast({
-				title: "Success",
-				description: "Item deleted",
-			});
-
-			router.push("/x/admin/redeems");
+			await handleErrorDelete(
+				async () => {
+					await deleteItem(itemId);
+				},
+				(toast) => {
+					toast({
+						title: "Success",
+						description: "Item deleted",
+					});
+					router.push("/x/admin/redeems");
+				},
+			);
 		}
-	}, [itemId, toast, router]);
+	}, [itemId, handleErrorDelete, router]);
 
 	return (
 		<Form {...form}>
