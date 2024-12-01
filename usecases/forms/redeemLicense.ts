@@ -3,6 +3,7 @@
 import type { formSchema as redeemLicenseFormSchema } from "@/components/RedeemLicenseForm";
 import { RedeemLicenseDraft } from "@/domain/models";
 import prisma from "@/libs/db";
+import { Prisma } from "@prisma/client";
 import type { z } from "zod";
 
 export const storeItem = async (
@@ -23,6 +24,11 @@ export const storeItem = async (
 		}
 	} catch (err) {
 		console.error(err);
+		if (err instanceof Prisma.PrismaClientKnownRequestError) {
+			if (err.code === "P2002") {
+				throw new Error("Item already exists");
+			}
+		}
 		throw new Error("Failed to store item");
 	}
 };
