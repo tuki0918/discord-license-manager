@@ -46,7 +46,7 @@ export default function UserDropdownMenu({
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
 							<DropdownMenuItem asChild>
-								<Link href="/x/admin/licenses">
+								<Link href="/x/admin">
 									<SquareArrowOutUpRight />
 									<span>{t("menu/console")}</span>
 								</Link>
