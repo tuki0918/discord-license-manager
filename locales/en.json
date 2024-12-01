@@ -5,5 +5,9 @@
 	},
 	"Components/SideNavUser": {
 		"menu/logout": "Log out"
+	},
+	"Components/UserDropdownMenu": {
+		"menu/console": "Admin Console",
+		"menu/logout": "Log out"
 	}
 }

@@ -5,5 +5,9 @@
 	},
 	"Components/SideNavUser": {
 		"menu/logout": "ログアウト"
+	},
+	"Components/UserDropdownMenu": {
+		"menu/console": "管理画面",
+		"menu/logout": "ログアウト"
 	}
 }
