@@ -93,6 +93,7 @@ const RedeemLicenseForm: FC<{
 							: `Item updated: ${values.code}`,
 					});
 					router.push("/x/admin/redeems");
+					router.refresh();
 				},
 			);
 		},
@@ -116,6 +117,7 @@ const RedeemLicenseForm: FC<{
 						description: "Item deleted",
 					});
 					router.push("/x/admin/redeems");
+					router.refresh();
 				},
 			);
 		}

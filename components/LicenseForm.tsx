@@ -98,6 +98,7 @@ const LicenseForm: FC<{
 							: `Item updated: ${values.code}`,
 					});
 					router.push("/x/admin/licenses");
+					router.refresh();
 				},
 			);
 		},
@@ -121,6 +122,7 @@ const LicenseForm: FC<{
 						description: "Item deleted",
 					});
 					router.push("/x/admin/licenses");
+					router.refresh();
 				},
 			);
 		}
