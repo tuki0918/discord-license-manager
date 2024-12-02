@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/usecases/forms/sign";
+import { signIn } from "@/usecases/forms/auth";
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 const Icons = {
