@@ -9,4 +9,18 @@ export const authConfig = {
 			clientSecret: env.AUTH_DISCORD_SECRET,
 		}),
 	],
+	callbacks: {
+		// after authorize callback
+		async jwt({ token, profile }) {
+			if (profile) {
+				token.uid = profile.id;
+			}
+			return token;
+		},
+		// after jwt callback
+		async session({ session, token }) {
+			session.user.uid = token.uid;
+			return session;
+		},
+	},
 } satisfies NextAuthConfig;
