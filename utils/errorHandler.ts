@@ -1,4 +1,8 @@
-type ToastFunction = (params: { title: string; description: string }) => void;
+type ToastFunction = (params: {
+	title: string;
+	description: string;
+	variant?: "default" | "destructive" | null | undefined;
+}) => void;
 
 export const handleError = (error: unknown, toast: ToastFunction) => {
 	console.error(error);
@@ -6,11 +10,13 @@ export const handleError = (error: unknown, toast: ToastFunction) => {
 		toast({
 			title: "Error",
 			description: error.message,
+			variant: "destructive",
 		});
 	} else {
 		toast({
 			title: "Error",
 			description: "An error occurred",
+			variant: "destructive",
 		});
 	}
 };
