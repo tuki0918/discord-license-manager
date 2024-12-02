@@ -28,17 +28,15 @@ const LanguageSelectMenu: FC = () => {
 	);
 
 	return (
-		<div className="flex items-center justify-center">
-			<Select onValueChange={selectLanguage} defaultValue={defaultLocale}>
-				<SelectTrigger className="w-[180px]">
-					<SelectValue placeholder="Select a Language" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectItem value="ja">日本語</SelectItem>
-					<SelectItem value="en">English</SelectItem>
-				</SelectContent>
-			</Select>
-		</div>
+		<Select onValueChange={selectLanguage} defaultValue={defaultLocale}>
+			<SelectTrigger className="w-[180px]">
+				<SelectValue placeholder="Select a Language" />
+			</SelectTrigger>
+			<SelectContent>
+				<SelectItem value="ja">日本語</SelectItem>
+				<SelectItem value="en">English</SelectItem>
+			</SelectContent>
+		</Select>
 	);
 };
 
