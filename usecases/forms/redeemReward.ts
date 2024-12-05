@@ -4,14 +4,16 @@ import type { formSchema as redeemRewardFormSchema } from "@/components/RedeemRe
 import { License, RedeemLicenseDraft } from "@/domain/models";
 import prisma from "@/libs/db";
 import {
+	addGuildMember,
 	getGuildMemner,
 	getGuildRole,
 	putGuildMemberRole,
 } from "@/libs/discord";
+import { auth } from "@/utils/auth";
 import type { z } from "zod";
 
 abstract class RedeemRewardError extends Error {}
-class GuildNotJoinedError extends RedeemRewardError {}
+class DiscordNotLoggedInError extends RedeemRewardError {}
 class InvalidLicenseCodeError extends RedeemRewardError {}
 class DisabledLicenseCodeError extends RedeemRewardError {}
 class ExpiredLicenseCodeError extends RedeemRewardError {}
@@ -21,8 +23,15 @@ export const redeemReward = async (
 	values: z.infer<typeof redeemRewardFormSchema>,
 ) => {
 	try {
-		const { code, discord_id } = values;
-		await checkGuildMember(discord_id);
+		const session = await auth();
+		if (!session || !session.user.uid || !session.accessToken) {
+			throw new DiscordNotLoggedInError("You are not logged in");
+		}
+		const {
+			user: { uid: discord_id },
+			accessToken,
+		} = session;
+		const { code } = values;
 		const license = await validateLicenseCode(code);
 		const role = await fetchGuildRole(license.discordGrantRoleId);
 
@@ -33,7 +42,17 @@ export const redeemReward = async (
 			discord_id,
 			discord_grant_role_id: role.id,
 		});
-		await storeAndAssignRole(redeemLicense);
+
+		const isExist = await isExistGuildMember(discord_id);
+		if (!isExist) {
+			await storeAndAssignRole(redeemLicense, false);
+			await addGuildMember(discord_id, {
+				access_token: accessToken,
+				roles: [role.id],
+			});
+		} else {
+			await storeAndAssignRole(redeemLicense);
+		}
 	} catch (err) {
 		console.error(err);
 		if (err instanceof RedeemRewardError) {
@@ -43,10 +62,15 @@ export const redeemReward = async (
 	}
 };
 
-const checkGuildMember = async (discordId: string) => {
-	const member = await getGuildMemner(discordId);
-	if (!member) {
-		throw new GuildNotJoinedError("You are not a member of the guild.");
+const isExistGuildMember = async (discordId: string) => {
+	try {
+		const member = await getGuildMemner(discordId);
+		if (member) {
+			return true;
+		}
+		return false;
+	} catch (error) {
+		return false;
 	}
 };
 
@@ -77,7 +101,10 @@ const fetchGuildRole = async (roleId: string) => {
 	return role;
 };
 
-const storeAndAssignRole = async (redeemLicense: RedeemLicenseDraft) => {
+const storeAndAssignRole = async (
+	redeemLicense: RedeemLicenseDraft,
+	assignRole = true,
+) => {
 	const data = await prisma.redeemLicense.findUnique({
 		where: {
 			code_discord_id: {
@@ -96,9 +123,12 @@ const storeAndAssignRole = async (redeemLicense: RedeemLicenseDraft) => {
 		} else {
 			await db.redeemLicense.create({ data: redeemLicense.toDB() });
 		}
-		await putGuildMemberRole(
-			redeemLicense.discordId,
-			redeemLicense.discordGrantRoleId,
-		);
+
+		if (assignRole) {
+			await putGuildMemberRole(
+				redeemLicense.discordId,
+				redeemLicense.discordGrantRoleId,
+			);
+		}
 	});
 };

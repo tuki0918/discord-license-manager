@@ -5,6 +5,7 @@ import type {
 	RESTGetAPIGuildMemberResult,
 	RESTGetAPIGuildRoleResult,
 	RESTGetAPIGuildRolesResult,
+	RESTPutAPIGuildMemberResult,
 	RESTPutAPIGuildMemberRoleResult,
 } from "discord-api-types/v10";
 
@@ -52,6 +53,27 @@ export async function getGuildMemner(id: string) {
 	} catch (error) {
 		console.error(error);
 		throw new DiscordAPIError("Failed to get the member");
+	}
+}
+
+/**
+ * https://discord.com/developers/docs/resources/guild#add-guild-member
+ */
+export async function addGuildMember(
+	id: string,
+	params?: {
+		access_token: string;
+		roles: string[];
+	},
+) {
+	try {
+		return (await rest.put(
+			Routes.guildMember(guildId, id),
+			params ? { body: params } : undefined,
+		)) as RESTPutAPIGuildMemberResult;
+	} catch (error) {
+		console.error(error);
+		throw new DiscordAPIError("Failed to add the member");
 	}
 }
 
