@@ -24,21 +24,15 @@ import { redeemReward } from "@/usecases/forms/redeemReward";
 import { handleErrorWithLoading } from "@/utils/errorHandler";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
-import type { Session } from "next-auth";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const formSchema = z.object({
 	code: LicenseCodeSchema,
-	discord_id: z.string().min(1, {
-		message: "You must be logged in.",
-	}),
 });
 
-export default function RedeemRewardForm({
-	user,
-}: { user: Session["user"] | undefined }) {
+export default function RedeemRewardForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const { toast } = useToast();
 	const handleError = useCallback(
@@ -49,7 +43,6 @@ export default function RedeemRewardForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			code: "",
-			discord_id: user?.uid ?? "",
 		},
 	});
 
@@ -69,20 +62,6 @@ export default function RedeemRewardForm({
 		},
 		[handleError],
 	);
-
-	if (!user) {
-		return (
-			<Card className="w-[420px]">
-				<CardHeader>
-					<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
-					<CardDescription className="text-center">XXX</CardDescription>
-				</CardHeader>
-				<CardContent className="flex items-center justify-center">
-					<SignInButton />
-				</CardContent>
-			</Card>
-		);
-	}
 
 	return (
 		<Card className="w-[420px]">
@@ -111,19 +90,6 @@ export default function RedeemRewardForm({
 							)}
 						/>
 
-						<FormField
-							control={form.control}
-							name="discord_id"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input type="hidden" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
 						<div className="flex items-center justify-center">
 							<Button type="submit" disabled={isLoading}>
 								{isLoading && <LoaderCircle className="animate-spin" />}
@@ -132,6 +98,20 @@ export default function RedeemRewardForm({
 						</div>
 					</form>
 				</Form>
+			</CardContent>
+		</Card>
+	);
+}
+
+export function RedeemRewardSignInForm() {
+	return (
+		<Card className="w-[420px]">
+			<CardHeader>
+				<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
+				<CardDescription className="text-center">XXX</CardDescription>
+			</CardHeader>
+			<CardContent className="flex items-center justify-center">
+				<SignInButton />
 			</CardContent>
 		</Card>
 	);
