@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export function validateEnv<T extends ZodSchema>(
 	schema: T,
-	env: NodeJS.ProcessEnv = process.env,
+	env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
 ): z.infer<T> {
 	const result = schema.safeParse(env);
 	if (!result.success) {
