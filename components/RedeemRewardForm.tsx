@@ -2,7 +2,9 @@
 
 import { LicenseCodeSchema } from "@/components/LicenseForm";
 import SignInButton from "@/components/SignInButton";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -21,7 +23,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { redeemReward } from "@/usecases/forms/redeemReward";
+import { env } from "@/utils/dotenv.public";
 import { handleErrorWithLoading } from "@/utils/errorHandler";
+import { Link } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -51,20 +55,32 @@ export default function RedeemRewardForm() {
 			await handleError(
 				async () => {
 					await redeemReward(values);
+					form.reset();
 				},
 				(toast) => {
 					toast({
-						title: "Success",
-						description: `Item created: ${values.code}`,
+						title: "Congratulations!",
+						description: `Redeemed: ${values.code}`,
+						action: (
+							<Link
+								href={env.NEXT_PUBLIC_DISCORD_INVITE_URL}
+								className={buttonVariants({
+									variant: "outline",
+								})}
+							>
+								<Icons.discord className="w-4 h-4" />
+								Join
+							</Link>
+						),
 					});
 				},
 			);
 		},
-		[handleError],
+		[handleError, form],
 	);
 
 	return (
-		<Card className="w-[420px]">
+		<Card className="w-[460px]">
 			<CardHeader>
 				<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
 				<CardDescription className="text-center">XXX</CardDescription>
@@ -105,7 +121,7 @@ export default function RedeemRewardForm() {
 
 export function RedeemRewardSignInForm() {
 	return (
-		<Card className="w-[420px]">
+		<Card className="w-[460px]">
 			<CardHeader>
 				<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
 				<CardDescription className="text-center">XXX</CardDescription>

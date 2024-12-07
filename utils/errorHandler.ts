@@ -1,7 +1,11 @@
+import type { ToastActionElement } from "@/components/ui/toast";
+import type * as React from "react";
+
 type ToastFunction = (params: {
-	title: string;
+	title?: string;
 	description: string;
 	variant?: "default" | "destructive" | null | undefined;
+	action?: ToastActionElement;
 }) => void;
 
 export const handleError = (error: unknown, toast: ToastFunction) => {
