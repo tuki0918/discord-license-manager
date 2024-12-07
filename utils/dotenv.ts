@@ -1,8 +1,5 @@
 import { g, validateEnv } from "@/libs/dotenv";
-
-const publicSchema = g.envObject({
-	NEXT_PUBLIC_DISCORD_INVITE_URL: g.envString().url(),
-});
+import { publicSchema } from "@/utils/dotenv.public";
 
 const privateSchema = g.envObject({
 	DATABASE_URL: g.envString(),
@@ -16,4 +13,3 @@ const privateSchema = g.envObject({
 });
 
 export const env = validateEnv(publicSchema.merge(privateSchema));
-export const publicEnv = validateEnv(publicSchema);
