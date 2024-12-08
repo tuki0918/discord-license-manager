@@ -1,7 +1,7 @@
 import { g, validateEnv } from "@/libs/dotenv";
-import { publicSchema } from "@/utils/dotenv.public";
+import { schema as publicSchema } from "@/utils/dotenv.public";
 
-const privateSchema = g.envObject({
+const schema = g.envObject({
 	DATABASE_URL: g.envString(),
 	AUTH_URL: g.envString().url(),
 	AUTH_SECRET: g.envString(),
@@ -12,4 +12,4 @@ const privateSchema = g.envObject({
 	ADMIN_EMAIL: g.envString(),
 });
 
-export const env = validateEnv(publicSchema.merge(privateSchema));
+export const env = validateEnv(publicSchema.merge(schema));
