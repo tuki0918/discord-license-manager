@@ -10,9 +10,9 @@ import {
 import { routing, usePathname, useRouter } from "@/utils/i18n";
 import type { Locale } from "@/utils/i18n";
 import { useLocale } from "next-intl";
-import { type FC, useCallback } from "react";
+import { useCallback } from "react";
 
-const LanguageSelectMenu: FC = () => {
+export default function LanguageSelectMenu() {
 	const router = useRouter();
 	const pathname = usePathname();
 	const locale = useLocale();
@@ -38,6 +38,4 @@ const LanguageSelectMenu: FC = () => {
 			</SelectContent>
 		</Select>
 	);
-};
-
-export default LanguageSelectMenu;
+}

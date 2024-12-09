@@ -8,11 +8,12 @@ import {
 import type { RedeemLicenseType } from "@/domain/models";
 import { Link } from "@/utils/i18n";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import type { FC } from "react";
 
-const RedeemLicenseTableRowAction: FC<{
+export default function RedeemLicenseTableRowAction({
+	redeemLicense,
+}: {
 	redeemLicense: RedeemLicenseType;
-}> = ({ redeemLicense }) => {
+}) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -33,6 +34,4 @@ const RedeemLicenseTableRowAction: FC<{
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-};
-
-export default RedeemLicenseTableRowAction;
+}

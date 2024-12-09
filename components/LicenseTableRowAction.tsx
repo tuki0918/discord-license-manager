@@ -8,11 +8,12 @@ import {
 import type { LicenseType } from "@/domain/models";
 import { Link } from "@/utils/i18n";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import type { FC } from "react";
 
-const LicenseTableRowAction: FC<{
+export default function LicenseTableRowAction({
+	license,
+}: {
 	license: LicenseType;
-}> = ({ license }) => {
+}) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -33,6 +34,4 @@ const LicenseTableRowAction: FC<{
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-};
-
-export default LicenseTableRowAction;
+}

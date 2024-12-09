@@ -31,7 +31,6 @@ import { useRouter } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
-import type { FC } from "react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -54,11 +53,15 @@ export const formSchema = z.object({
 	}),
 });
 
-const LicenseForm: FC<{
-	itemId?: number;
+export default function LicenseForm({
+	itemId = null,
+	defaultValues,
+	roles,
+}: {
+	itemId?: number | null;
 	defaultValues?: Partial<z.infer<typeof formSchema>>;
 	roles: { id: string; name: string }[];
-}> = ({ itemId = null, defaultValues, roles }) => {
+}) {
 	const isCreate = !itemId;
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
@@ -288,6 +291,4 @@ const LicenseForm: FC<{
 			</form>
 		</Form>
 	);
-};
-
-export default LicenseForm;
+}

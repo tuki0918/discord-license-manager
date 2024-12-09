@@ -1,9 +1,7 @@
-import type { FC } from "react";
-
-const Sample: FC<{
+export default function Sample({
+	text,
+}: {
 	text: string;
-}> = ({ text }) => {
+}) {
 	return <div className="flex items-center justify-center">{text}</div>;
-};
-
-export default Sample;
+}
