@@ -21,6 +21,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SITE_NAME } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { redeemReward } from "@/usecases/forms/redeemReward";
 import { env } from "@/utils/dotenv.public";
@@ -36,7 +37,11 @@ export const formSchema = z.object({
 	code: LicenseCodeSchema,
 });
 
-export default function RedeemRewardForm() {
+export default function RedeemRewardForm({
+	isLoggedIn,
+}: {
+	isLoggedIn: boolean;
+}) {
 	const [isLoading, setIsLoading] = useState(false);
 	const { toast } = useToast();
 	const handleError = useCallback(
@@ -82,23 +87,27 @@ export default function RedeemRewardForm() {
 	return (
 		<Card className="w-[460px]">
 			<CardHeader>
-				<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
-				<CardDescription className="text-center">XXX</CardDescription>
+				<CardTitle className="text-center text-xl m-2">{SITE_NAME}</CardTitle>
+				<CardDescription className="text-center">
+					{isLoggedIn
+						? "Please enter your license key to claim your reward."
+						: "Please sign in to claim your reward."}
+				</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
 							control={form.control}
 							name="code"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>コード</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
 											{...field}
 											className="min-w-96"
+											disabled={!isLoggedIn}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -107,13 +116,14 @@ export default function RedeemRewardForm() {
 						/>
 
 						<div className="flex items-center justify-center">
-							<Button type="submit" disabled={isLoading}>
+							<Button type="submit" disabled={!isLoggedIn || isLoading}>
 								{isLoading && <LoaderCircle className="animate-spin" />}
-								XXX
+								Verify Code
 							</Button>
 						</div>
 					</form>
 				</Form>
+				{!isLoggedIn && <RedeemRewardSignInForm />}
 			</CardContent>
 		</Card>
 	);
@@ -121,14 +131,20 @@ export default function RedeemRewardForm() {
 
 export function RedeemRewardSignInForm() {
 	return (
-		<Card className="w-[460px]">
-			<CardHeader>
-				<CardTitle className="text-center text-xl m-2">XXX</CardTitle>
-				<CardDescription className="text-center">XXX</CardDescription>
-			</CardHeader>
-			<CardContent className="flex items-center justify-center">
+		<div>
+			<div className="relative my-4">
+				<div className="absolute inset-0 flex items-center">
+					<span className="w-full border-t" />
+				</div>
+				<div className="relative flex justify-center text-xs uppercase">
+					<span className="bg-background px-2 text-muted-foreground">
+						Connect To
+					</span>
+				</div>
+			</div>
+			<div className="flex items-center justify-center">
 				<SignInButton />
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	);
 }

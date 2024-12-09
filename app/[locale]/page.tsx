@@ -22,7 +22,7 @@ export default async function Page() {
 				)}
 
 				<div className="flex items-center justify-center">
-					{isLoggedIn ? <RedeemRewardForm /> : <RedeemRewardSignInForm />}
+					<RedeemRewardForm isLoggedIn={isLoggedIn} />
 				</div>
 
 				<Separator className="my-8" />
