@@ -29,6 +29,7 @@ import { handleErrorWithLoading } from "@/utils/errorHandler";
 import { Link } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,6 +43,8 @@ export default function RedeemRewardForm({
 }: {
 	isLoggedIn: boolean;
 }) {
+	const searchParams = useSearchParams();
+	const code = searchParams.get("code");
 	const [isLoading, setIsLoading] = useState(false);
 	const { toast } = useToast();
 	const handleError = useCallback(
@@ -51,7 +54,7 @@ export default function RedeemRewardForm({
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			code: "",
+			code: code ?? "",
 		},
 	});
 
@@ -60,7 +63,7 @@ export default function RedeemRewardForm({
 			await handleError(
 				async () => {
 					await redeemReward(values);
-					form.reset();
+					form.reset({ code: "" });
 				},
 				(toast) => {
 					toast({
@@ -69,6 +72,7 @@ export default function RedeemRewardForm({
 						action: (
 							<Link
 								href={env.NEXT_PUBLIC_DISCORD_INVITE_URL}
+								target="_blank"
 								className={buttonVariants({
 									variant: "outline",
 								})}

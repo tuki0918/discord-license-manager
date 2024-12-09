@@ -1,7 +1,5 @@
 import LanguageSelectMenu from "@/components/LanguageSelectMenu";
-import RedeemRewardForm, {
-	RedeemRewardSignInForm,
-} from "@/components/RedeemRewardForm";
+import RedeemRewardForm from "@/components/RedeemRewardForm";
 import UserDropdownMenu from "@/components/UserDropdownMenu";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@/utils/auth";
