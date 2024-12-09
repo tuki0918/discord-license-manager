@@ -3,8 +3,10 @@
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { signIn } from "@/usecases/forms/auth";
+import { useTranslations } from "next-intl";
 
 export default function SignIn() {
+	const t = useTranslations("Components/SignIn");
 	return (
 		<form
 			action={async () => {
@@ -13,7 +15,7 @@ export default function SignIn() {
 		>
 			<Button type="submit" variant="outline">
 				<Icons.discord />
-				Sign in with Discord
+				{t("discord")}
 			</Button>
 		</form>
 	);

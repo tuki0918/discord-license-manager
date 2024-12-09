@@ -9,5 +9,17 @@
 	"Components/UserDropdownMenu": {
 		"menu/console": "管理画面",
 		"menu/logout": "ログアウト"
+	},
+	"Components/RedeemRewardForm": {
+		"toast/join": "参加",
+		"submit": "コードを確認",
+		"loggedin/true": "報酬を受け取るには、ライセンスキーを入力してください。",
+		"loggedin/false": "報酬を受け取るには、サインインしてください。"
+	},
+	"Components/RedeemRewardSignInForm": {
+		"separater": "接続先"
+	},
+	"Components/SignIn": {
+		"discord": "Discord でログイン"
 	}
 }

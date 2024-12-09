@@ -9,5 +9,17 @@
 	"Components/UserDropdownMenu": {
 		"menu/console": "Admin Console",
 		"menu/logout": "Log out"
+	},
+	"Components/RedeemRewardForm": {
+		"toast/join": "Join",
+		"submit": "Verify Code",
+		"loggedin/true": "Please enter your license key to claim your reward.",
+		"loggedin/false": "Please sign in to claim your reward."
+	},
+	"Components/RedeemRewardSignInForm": {
+		"separater": "Connect To"
+	},
+	"Components/SignIn": {
+		"discord": "Sign in with Discord"
 	}
 }

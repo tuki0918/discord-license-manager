@@ -17,7 +17,6 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -29,6 +28,7 @@ import { handleErrorWithLoading } from "@/utils/errorHandler";
 import { Link } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -45,6 +45,7 @@ export default function RedeemRewardForm({
 }) {
 	const searchParams = useSearchParams();
 	const code = searchParams.get("code");
+	const t = useTranslations("Components/RedeemRewardForm");
 	const [isLoading, setIsLoading] = useState(false);
 	const { toast } = useToast();
 	const handleError = useCallback(
@@ -78,14 +79,14 @@ export default function RedeemRewardForm({
 								})}
 							>
 								<Icons.discord className="w-4 h-4" />
-								Join
+								{t("toast/join")}
 							</Link>
 						),
 					});
 				},
 			);
 		},
-		[handleError, form],
+		[handleError, t, form],
 	);
 
 	return (
@@ -93,9 +94,7 @@ export default function RedeemRewardForm({
 			<CardHeader>
 				<CardTitle className="text-center text-xl m-2">{SITE_NAME}</CardTitle>
 				<CardDescription className="text-center">
-					{isLoggedIn
-						? "Please enter your license key to claim your reward."
-						: "Please sign in to claim your reward."}
+					{isLoggedIn ? t("loggedin/true") : t("loggedin/false")}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -122,7 +121,7 @@ export default function RedeemRewardForm({
 						<div className="flex items-center justify-center">
 							<Button type="submit" disabled={!isLoggedIn || isLoading}>
 								{isLoading && <LoaderCircle className="animate-spin" />}
-								Verify Code
+								{t("submit")}
 							</Button>
 						</div>
 					</form>
@@ -134,6 +133,7 @@ export default function RedeemRewardForm({
 }
 
 export function RedeemRewardSignInForm() {
+	const t = useTranslations("Components/RedeemRewardSignInForm");
 	return (
 		<div>
 			<div className="relative my-4">
@@ -142,7 +142,7 @@ export function RedeemRewardSignInForm() {
 				</div>
 				<div className="relative flex justify-center text-xs uppercase">
 					<span className="bg-background px-2 text-muted-foreground">
-						Connect To
+						{t("separater")}
 					</span>
 				</div>
 			</div>
