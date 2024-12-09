@@ -20,7 +20,10 @@ export default async function Page() {
 				)}
 
 				<div className="flex items-center justify-center">
-					<RedeemRewardForm isLoggedIn={isLoggedIn} />
+					<RedeemRewardForm
+						isLoggedIn={isLoggedIn}
+						discordId={session?.user.uid || null}
+					/>
 				</div>
 
 				<Separator className="my-8" />

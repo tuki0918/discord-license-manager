@@ -14,7 +14,9 @@
 		"toast/join": "Join",
 		"submit": "Verify Code",
 		"loggedin/true": "Please enter your license key to claim your reward.",
-		"loggedin/false": "Please sign in to claim your reward."
+		"loggedin/false": "Please sign in to claim your reward.",
+		"form/code": "License Key",
+		"form/discord_id": "Discord ID"
 	},
 	"Components/RedeemRewardSignInForm": {
 		"separater": "Connect To"

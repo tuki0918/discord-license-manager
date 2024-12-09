@@ -14,7 +14,9 @@
 		"toast/join": "参加",
 		"submit": "コードを確認",
 		"loggedin/true": "報酬を受け取るには、ライセンスキーを入力してください。",
-		"loggedin/false": "報酬を受け取るには、サインインしてください。"
+		"loggedin/false": "報酬を受け取るには、サインインしてください。",
+		"form/code": "ライセンスキー",
+		"form/discord_id": "Discord ID"
 	},
 	"Components/RedeemRewardSignInForm": {
 		"separater": "接続先"

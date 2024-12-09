@@ -17,6 +17,7 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -36,12 +37,15 @@ import { z } from "zod";
 
 export const formSchema = z.object({
 	code: LicenseCodeSchema,
+	discord_id: z.string(),
 });
 
 export default function RedeemRewardForm({
 	isLoggedIn,
+	discordId,
 }: {
 	isLoggedIn: boolean;
+	discordId: string | null;
 }) {
 	const searchParams = useSearchParams();
 	const code = searchParams.get("code");
@@ -56,6 +60,7 @@ export default function RedeemRewardForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			code: code ?? "",
+			discord_id: discordId ?? "",
 		},
 	});
 
@@ -90,9 +95,9 @@ export default function RedeemRewardForm({
 	);
 
 	return (
-		<Card className="w-[460px]">
+		<Card className="w-[440px]">
 			<CardHeader>
-				<CardTitle className="text-center text-xl m-2">{SITE_NAME}</CardTitle>
+				<CardTitle className="text-center text-2xl">{SITE_NAME}</CardTitle>
 				<CardDescription className="text-center">
 					{isLoggedIn ? t("loggedin/true") : t("loggedin/false")}
 				</CardDescription>
@@ -100,18 +105,30 @@ export default function RedeemRewardForm({
 			<CardContent>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						{isLoggedIn && (
+							<FormField
+								control={form.control}
+								name="discord_id"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{t("form/discord_id")}</FormLabel>
+										<FormControl>
+											<Input {...field} disabled={true} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						)}
+
 						<FormField
 							control={form.control}
 							name="code"
 							render={({ field }) => (
 								<FormItem>
+									<FormLabel>{t("form/code")}</FormLabel>
 									<FormControl>
-										<Input
-											placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
-											{...field}
-											className="min-w-96"
-											disabled={!isLoggedIn}
-										/>
+										<Input {...field} disabled={!isLoggedIn} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
